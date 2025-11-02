@@ -23,7 +23,6 @@ public class CreateBooking extends Utils {
 
     @Given("user has access to the endpoint {string}")
     public void user_has_access_to_the_endpoint(String url) throws IOException {
-        RestAssured.baseURI="https://restful-booker.herokuapp.com";
         createData data=new createData();
         this.url=url;
 
@@ -45,6 +44,6 @@ public class CreateBooking extends Utils {
         int ID=Integer.parseInt(js.getString("bookingid"));
         System.out.println("ID:"+js.getString("bookingid"));
         System.out.println("NAME:"+js.getString("booking.firstname"));
-        GlobalContext.setBookingId(ID);
+        GlobalContext.put("Id",ID);
     }
 }

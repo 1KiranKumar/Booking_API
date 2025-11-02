@@ -4,6 +4,8 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 import java.io.*;
@@ -29,5 +31,10 @@ public class Utils {
         FileInputStream fs=new FileInputStream("D:\\Downloads\\Booking_API\\API_Booking\\Global.properties");
         prop.load(fs);
         return prop.getProperty(key);
+    }
+
+    public String getJsonPath(Response response,String key){
+        JsonPath js=new JsonPath(response.asString());
+        return js.getString(key);
     }
 }

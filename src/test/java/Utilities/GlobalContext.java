@@ -1,16 +1,16 @@
 package Utilities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GlobalContext {
+    private static final Map<String, Object> session = new HashMap<>();
 
-    public static int bookingId;
-
-
-    public static int getBookingId() {
-        return bookingId;
+    public static void put(String key, Object value) {
+        session.put(key, value);
     }
 
-    public static void setBookingId(int bookingId) {
-        GlobalContext.bookingId = bookingId;
+    public static Object get(String key) {
+        return session.get(key);
     }
-
 }
