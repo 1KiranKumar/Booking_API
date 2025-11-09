@@ -60,6 +60,13 @@
             <version>3.5.4</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>7.30.0</version>
+        </dependency>
+
 
     </dependencies>
 
