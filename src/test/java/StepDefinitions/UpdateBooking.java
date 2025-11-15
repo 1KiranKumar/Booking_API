@@ -5,13 +5,18 @@ import Pojo.BookingDates;
 import Pojo.CreateBooking;
 import Utilities.GlobalContext;
 import Utilities.Utils;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import io.cucumber.cienvironment.internal.com.eclipsesource.json.JsonObject;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class UpdateBooking extends Utils {
     GlobalContext context;
@@ -51,8 +56,33 @@ public class UpdateBooking extends Utils {
         req=given().spec(RequestSpec()).body(cb).pathParams("key",id).headers("Cookie","token="+GlobalContext.get("token").toString());
         context.res=req.when().put(GlobalContext.get("endpoint").toString());
 
+        String firstname=getJsonPath(context.res, "firstname");
+        String lastname=getJsonPath(context.res, "lastname");
+        assertEquals(firstname,"John");
+        assertEquals(lastname,"Rambo");
+    }
+
+
+
+    @When("user makes a request to update first name {string} & Last name {string}")
+    public void user_makes_a_request_to_update_first_name_last_name(String string, String string2) throws IOException {
+        String token=GlobalContext.get("token").toString();
+        String id=GlobalContext.get("Id").toString();
+        JSONObject jb=new JSONObject();
+        jb.put("firstname",string);
+        jb.put("lastname",string2);
+
+        req=given().spec(RequestSpec()).body(jb.toString()).pathParams("key",id).headers("Cookie","token="+token);
+        context.res=req.when().patch(GlobalContext.get("endpoint").toString());
+
+        String firstname=getJsonPath(context.res,"firstname");
+        String lastname=getJsonPath(context.res,"lastname");
+        assertEquals(firstname,"TwoPeople");
+        assertEquals(lastname,"Lastname");
 
     }
+
+
 
 
 
